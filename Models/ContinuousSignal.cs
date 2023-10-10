@@ -10,7 +10,7 @@ namespace SignalProject.Models
     public class ContinuousSignal : Signal
     {
 		private List<double> Values { get; set; }
-		public ContinuousSignal(ESignalName SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
+		public ContinuousSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
 			this.Values = new List<double>();
 		}

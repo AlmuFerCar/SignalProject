@@ -11,7 +11,7 @@ namespace SignalProject.Models
     {	
 		List<int> Values { get; set; }
 
-		public DiscreetSignal(ESignalName SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
+		public DiscreetSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
 			this.Values = new();
 		}

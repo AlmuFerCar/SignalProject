@@ -11,14 +11,14 @@ namespace SignalProject.Models
     {
         public ESignalName name { get; set; }
         public ESignalType Type { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime CreationTime { get; set; }
 
 
-        public Signal(ESignalName SignalName , ESignalType signalType , DateTime date )
+        public Signal(ESignalName SignalName , ESignalType signalType)
         {
             this.name = SignalName;
             this.Type = signalType;
-            this.Time = date;
+            this.CreationTime = DateTime.Now;
         }
 
 

@@ -11,6 +11,6 @@ namespace SignalProject.Models.Interfaces
         public List<Signal> FindAllSignals();
         public Signal FindSignalByName(string name);
         public Signal FindSignalByTime(DateTime date);
-        public bool InsertSignal(Signal signal);
+        public bool InsertSignal(List<Signal> SignalList);
     }
 }

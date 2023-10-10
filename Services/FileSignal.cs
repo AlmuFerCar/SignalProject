@@ -12,10 +12,23 @@ namespace SignalProject.Services
     {
 		private string path = @"C:\Users\iscastro\Desktop\Signals.txt";
 		//private String path = "";
+
+		// COMPLETAR
 		public List<Signal> FindAllSignals()
         {
-            throw new NotImplementedException();
-        }
+			List<Signal> Signals = new();
+
+			using (StreamReader sr = File.OpenText(path))
+			{
+				string s;
+				while ((s = sr.ReadLine()) != null)
+				{
+                    
+
+				}
+			}
+			return Signals;
+		}
 
         public Signal FindSignalByName(string name)
         {
@@ -27,9 +40,26 @@ namespace SignalProject.Services
             throw new NotImplementedException();
         }
 
-        public bool InsertSignal(Signal signal)
+        public bool InsertSignal(List<Signal> SignalList)
         {
-            throw new NotImplementedException();
-        }
+			try
+			{
+				using (StreamWriter sw = File.CreateText(path))
+				{
+					foreach (Signal w in SignalList)
+					{
+						if (w != null)
+						{
+							sw.Write($"");
+						}
+					}
+				}
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
+		}
     }
 }
