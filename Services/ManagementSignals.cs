@@ -11,45 +11,74 @@ namespace SignalProject.Services
     public class ManagementSignals : IManagementSignals
     {
         #region -------------------------- VARIABLES ZONE --------------------------------
-        List<Signal> SignalsList = new();
+		private List<Signal> SignalsList = new();
+		private FileSignal FileSignal = new();
         #endregion
 
         #region -------------------------- METHODS ZONE --------------------------------
 
-        public bool AddSignal()
+        public bool AddSignal(Signal Signal)
         {
-            throw new NotImplementedException();
-        }
+			try
+			{
+				SignalsList.Add(Signal);
+				SaveSignal(SignalsList);
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}	
+		}
 
-        public double AverageValues()
-        {
-            throw new NotImplementedException();
-        }
+		public double AverageValues()
+		{
+			throw new NotImplementedException();
+		}
 
-        public bool DeleteSignal()
-        {
-            throw new NotImplementedException();
-        }
+		public bool DeleteSignal(String Name)
+		{
+			try
+			{
+				SignalsList = SignalsList.FindAll(signal => signal.name.ToString() != Name);
+				SaveSignal(SignalsList);
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}			
+		}
 
-        public Signal FindSignal(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
+		public Signal FindSignal(DateTime date)
+		{
+			return null;
+		}
 
-        public Signal FindSignal(string name)
-        {
-            throw new NotImplementedException();
-        }
+		public Signal FindSignal(string name)
+		{
+			Signal signal;
+			try
+			{
+				signal = SignalsList.Find(signal => signal.name.ToString() == name);
+				return signal;
+			}
+			catch (Exception)
+			{
+				return null;
+			}			 
+		}
 
-        public int MaxValue()
-        {
-            throw new NotImplementedException();
-        }
+		public int MaxValue()
+		{
+			throw new NotImplementedException();
+		}
 
-        public bool SaveSignal(Signal signal)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
-    }
+		public bool SaveSignal(List<Signal> SignalList)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+	}
 }

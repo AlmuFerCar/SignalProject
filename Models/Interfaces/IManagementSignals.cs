@@ -8,9 +8,9 @@ namespace SignalProject.Models.Interfaces
 {
     public interface IManagementSignals
     {
-        public bool AddSignal();
-        public bool DeleteSignal();
-        public bool SaveSignal(Signal signal);
+        public bool AddSignal(Signal Signal);
+        public bool DeleteSignal(String Name);
+        public bool SaveSignal(List<Signal> SignalList);
         public int MaxValue();
         public double AverageValues();
         public Signal FindSignal(DateTime date);

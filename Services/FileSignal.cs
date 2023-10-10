@@ -10,9 +10,9 @@ namespace SignalProject.Services
 {
     public class FileSignal : IFileSignal
     {
-        private string path = "";
-        //private String path = "";
-        public List<Signal> FindAllSignals()
+		private string path = @"C:\Users\iscastro\Desktop\Signals.txt";
+		//private String path = "";
+		public List<Signal> FindAllSignals()
         {
             throw new NotImplementedException();
         }

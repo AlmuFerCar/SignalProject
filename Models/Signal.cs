@@ -13,6 +13,15 @@ namespace SignalProject.Models
         public ESignalType Type { get; set; }
         public DateTime Time { get; set; }
 
+
+        public Signal(ESignalName SignalName , ESignalType signalType , DateTime date )
+        {
+            this.name = SignalName;
+            this.Type = signalType;
+            this.Time = date;
+        }
+
+
         public override bool Equals(object? obj)
         {
             return obj is Signal signal &&

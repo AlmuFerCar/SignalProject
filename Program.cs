@@ -11,6 +11,9 @@ namespace SignalProject
 		public static void Main(string[] args) 
 		{ 
 
+			DateTime fecha = DateTime.Now;	
+
+			Console.WriteLine(fecha.ToString());
 		}
 	}
 }
