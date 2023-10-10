@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SignalProject
 {
-    internal class StorageSignals
+    public class StorageSignals
     {
     }
 }
