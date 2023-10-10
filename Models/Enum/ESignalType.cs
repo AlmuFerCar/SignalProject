@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalProject
+namespace SignalProject.Models.Enum
 {
-    public abstract class Signal
+    public enum ESignalType
     {
+        Continuous,
+        Discreet
     }
 }
