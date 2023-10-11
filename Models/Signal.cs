@@ -19,7 +19,7 @@ namespace SignalProject.Models
         {
             this.name = SignalName;
             this.Type = signalType;
-            this.CreationTime = DateTime.Now;
+            this.CreationTime = DateTime.UtcNow;
         }
 
         public override string ToString()
