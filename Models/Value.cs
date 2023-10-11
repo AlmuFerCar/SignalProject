@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SignalProject.Models.Interfaces;
 
 namespace SignalProject.Models
 {
-	public class ValueDiscreet
+	public class Value
 	{
-        public int NumberValue { get; set; }
+        public Double NumberValue { get; set; }
         public DateTime Date { get; set; }
     }
 }

@@ -40,23 +40,7 @@ namespace SignalProject.Services
 
             foreach (var signal in SignalsList)
             {
-				if (signal is ContinuousSignal continuousSignal)
-				{
-					foreach (var value in continuousSignal.Values)
-					{
-						sumValues += value.NumberValue;
-						totalValues++;
-					}
-				}
-				else if (signal is DiscreetSignal discreetSignal)
-				{
-                    foreach (var value in discreetSignal.Values)
-                    {
-                        sumValues += value.NumberValue;
-                        totalValues++;
-                    }
-                }
-
+				
             }
 
             if (totalValues > 0)

@@ -9,13 +9,9 @@ namespace SignalProject.Models
 {
     public class DiscreetSignal : Signal
     {
-		private List<ValueDiscreet> values;
-
 		public DiscreetSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
-			this.Values = new();
+			Values = new List<Value>();
 		}
-
-        public List<ValueDiscreet> Values { get => values; set => values = value; }
     }
 }

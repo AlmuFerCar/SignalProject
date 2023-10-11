@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalProject.Models.Enum;
+using SignalProject.Models.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SignalProject.Models
 {
     public class ContinuousSignal : Signal
     {
-		private List<ValueContinuous> values;
+
 		public ContinuousSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
-			this.values = new List<ValueContinuous>();
+			Values = new List<Value>();
 		}
-
-        public List<ValueContinuous> Values { get => values; set => values = value; }
-    }
+	
+	}
 }

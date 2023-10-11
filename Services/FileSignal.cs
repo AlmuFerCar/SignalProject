@@ -23,8 +23,7 @@ namespace SignalProject.Services
 				string s;
 				while ((s = sr.ReadLine()) != null)
 				{
-                    
-
+                   
 				}
 			}
 			return Signals;

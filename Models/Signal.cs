@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalProject.Models.Enum;
+using SignalProject.Models.Interfaces;
 
 namespace SignalProject.Models
 {
@@ -12,24 +13,19 @@ namespace SignalProject.Models
         public ESignalName name { get; set; }
         public ESignalType Type { get; set; }
         public DateTime CreationTime { get; set; }
+        public List<Value> Values { get; set; }
 
-
-        public Signal(ESignalName SignalName , ESignalType signalType)
+		public Signal(ESignalName SignalName , ESignalType signalType)
         {
             this.name = SignalName;
             this.Type = signalType;
             this.CreationTime = DateTime.Now;
         }
 
-
-        public override bool Equals(object? obj)
-        {
-            return obj is Signal signal &&
-                   name == signal.name;
-        }
         public override string ToString()
         {
             return name.ToString();
         }
+
     }
 }
