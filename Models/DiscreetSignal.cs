@@ -8,15 +8,14 @@ using SignalProject.Models.Enum;
 namespace SignalProject.Models
 {
     public class DiscreetSignal : Signal
-    {	
-		List<int> Values { get; set; }
+    {
+		private List<Value> values;
 
 		public DiscreetSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
 			this.Values = new();
 		}
 
-
-
-	}
+        public List<Value> Values { get => values; set => values = value; }
+    }
 }
