@@ -30,6 +30,49 @@ namespace Ejercicio4List
             }
             return numero;
         }
+        public static int ReadNumBit()
+        {
+            Regex rgx = new Regex(@"\b[0|1]\b");
+            String valor;
+            int numero = 0;
+            Console.WriteLine("Escribe 1(encendido) || 0(apagado)");
+            valor = Console.ReadLine();
+
+            Console.Clear();
+
+            while (!rgx.IsMatch(valor))
+            {
+                Console.WriteLine("Entrada incorrecta. Escribe 1(encendido) || 0(apagado)");
+                valor = Console.ReadLine();
+                Console.Clear();
+            }
+
+            numero = Convert.ToInt32(valor);
+            return numero;
+        }
+        public static double ReadNumDouble()
+        {
+            Regex rgx = new Regex("^\\d+(\\,\\d+)?$");
+            String valor;
+            double numero = 0;
+            Console.WriteLine("Escribe un numero decimal");
+            valor = Console.ReadLine();
+
+            Console.Clear();
+
+            if (rgx.IsMatch(valor))
+            {
+                numero = Convert.ToDouble(valor);
+            }
+            else
+            {
+                Console.WriteLine("Escribe solo numero porfavor!");
+                ReadNumDouble();
+            }
+            return numero;
+        }
+
+        
         public static String readSignal()
         {
             Regex rgx = new Regex(@"\b[A-Za-z]+\b");

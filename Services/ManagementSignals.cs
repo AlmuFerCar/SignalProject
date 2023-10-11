@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Ejercicio4List;
 using SignalProject.Models;
 using SignalProject.Models.Enum;
@@ -33,15 +34,16 @@ namespace SignalProject.Services
 			}	
 		}
 
-		public double AverageValues()
+		public double AverageValues(Signal signal)
 		{
             double sumValues = 0;
             int totalValues = 0;
 			double average = 0;
 
-            foreach (var signal in SignalsList)
+            foreach (var item in signal.Values)
             {
-				
+				sumValues += item.NumberValue;
+				totalValues++;
             }
 
             if (totalValues > 0)
@@ -89,8 +91,18 @@ namespace SignalProject.Services
 
 		public Signal FindSignal(DateTime date)
 		{
+			//Signal signal;
+			//         try
+			//         {
+			//             signal = SignalsList.Find(signal => signal.name.ToString() == date);
+			//             return signal;
+			//         }
+			//         catch (Exception)
+			//         {
+			//             return null;
+			//         }
 			return null;
-		}
+        }
 
 		public Signal FindSignal(string name)
 		{
@@ -106,38 +118,20 @@ namespace SignalProject.Services
 			}			 
 		}
 
-		public int MaxValue()
+		public double MaxValue(Signal signal)
 		{
             ESignalName nameSignalMaxValue;
 			double maxValueSignal = 0;
             DateTime dateSignalMaxValue;
 
-            foreach (var signal in SignalsList)
+            foreach (var itemSignal in signal.Values)
             {
-                if (signal is ContinuousSignal continuousSignal)
-                {
-                    foreach (var value in continuousSignal.Values)
-                    {
-                        if (value.NumberValue > maxValueSignal)
-                        {
-                            maxValueSignal = value.NumberValue;
-                            nameSignalMaxValue = continuousSignal.name;
-                        }
-                    }
-                }
-                else if (signal is DiscreetSignal discreetSignal)
-                {
-                    foreach (var value in discreetSignal.Values)
-                    {
-                        if (value.NumberValue > maxValueSignal)
-                        {
-                            maxValueSignal = value.NumberValue;
-                            nameSignalMaxValue = signal.name;
-                        }
-                    }
-                }
+				if (itemSignal.NumberValue > maxValueSignal)
+				{ 
+					maxValueSignal = itemSignal.NumberValue;
+				}
             }
-			return 0;
+			return maxValueSignal;
         }
 
 		public bool SaveSignal(List<Signal> SignalList)
@@ -167,13 +161,11 @@ namespace SignalProject.Services
 
 			if( signal.Type == ESignalType.Continuous)
 			{
-				//HELPER -> double
-				signal.Values.Add(new Value(1.1));
+				signal.Values.Add(new Value(Helper.ReadNumDouble()));
 			}
 			else
 			{
-				//HELPER -> int
-				signal.Values.Add(new Value(Helper.ReadNum()));
+				signal.Values.Add(new Value(Helper.ReadNumBit()));
 			}
 
 			SignalsList.RemoveAt(select-1);
@@ -183,9 +175,20 @@ namespace SignalProject.Services
 
 		public void ShowSignal(Signal signal)
 		{
-
+			if (signal == null)
+			{
+				Console.WriteLine("No existe esta señal");
+			}
+			else
+			{
+                Console.WriteLine($"Señal de: {signal.name} es de tipo: {signal.Type} su fecha de creación es: {signal.CreationTime}");
+                Console.WriteLine("con valores: ");
+                foreach (var item in signal.Values)
+                {
+                    Console.WriteLine($"Valor: {item.NumberValue} Fecha: {item.Date}");
+                }
+            }
 		}
-
 		#endregion
 	}
 }

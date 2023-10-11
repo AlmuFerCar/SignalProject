@@ -15,7 +15,7 @@ namespace SignalProject.Models
 		public Value(double numberValue)
 		{
 			NumberValue = numberValue;
-			Date = DateTime.Now;
+			Date = DateTime.UtcNow;
 		}
 	}
 }

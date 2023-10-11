@@ -40,31 +40,29 @@ namespace SignalProject
 
 		public void RunMainMenu(int select)
 		{
-			switch (select)
+			String name;
+
+            switch (select)
 			{
-				//ANADIR
 				case 1:
 					MSignals.AddSignal(ReadTypeSignal());
 					break;
-				//ANADIR REGISTRO
 				case 2:
 					MSignals.AddValueSignal();
 					break;
-				//BORRAR SENAL
 				case 3:
 					MSignals.DeleteSignal();
 					break;
-			    //BUSCAR SENAL
 				case 4:
-
+					ShowFindMenu();
 					break;
-				//MEDIA 
 				case 5:
-					MSignals.AverageValues();
+                    name = Helper.readSignal();
+                    MSignals.AverageValues(MSignals.FindSignal(name));
 					break;
-				//MAX
 				case 6:
-					MSignals.MaxValue();
+                     name = Helper.readSignal();
+                    Console.WriteLine("El valor maximo de la señal de "+name+" es: "+MSignals.MaxValue(MSignals.FindSignal(name)));
 					break;
 			}
 		}
@@ -97,10 +95,10 @@ namespace SignalProject
 					signal = new DiscreetSignal(ESignalName.Switch, ESignalType.Discreet);
 					break;
 				case 3:
-					signal = new ContinuousSignal(ESignalName.Pressure, ESignalType.Continuous);
+					signal = new ContinuousSignal(ESignalName.Volume, ESignalType.Continuous);
 					break;
 				case 4:
-					signal = new ContinuousSignal(ESignalName.Volume, ESignalType.Continuous);
+					signal = new ContinuousSignal(ESignalName.Pressure, ESignalType.Continuous);
 					break;
 			}
 
@@ -119,13 +117,13 @@ namespace SignalProject
 			int select;
 			TextFindMenu();
 			select = Helper.ReadNum();
-			
-			if(select != 0)
+
+            RunFindMenu(select);
+
+            if (select != 0)
 			{
 				ShowFindMenu();
 			}
-
-			RunFindMenu(select);
 		}
 		public void RunFindMenu(int select)
 		{
@@ -136,7 +134,7 @@ namespace SignalProject
 					MSignals.ShowSignal(MSignals.FindSignal(name));
 					break;
 				case 2:
-					MSignals.FindSignal(DateTime.Now);
+                    MSignals.ShowSignal(MSignals.FindSignal(DateTime.Now));
 					break;
 			}
 
