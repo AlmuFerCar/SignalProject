@@ -11,5 +11,11 @@ namespace SignalProject.Models
 	{
         public Double NumberValue { get; set; }
         public DateTime Date { get; set; }
-    }
+
+		public Value(double numberValue)
+		{
+			NumberValue = numberValue;
+			Date = DateTime.Now;
+		}
+	}
 }

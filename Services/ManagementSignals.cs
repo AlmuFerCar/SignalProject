@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ejercicio4List;
 using SignalProject.Models;
 using SignalProject.Models.Enum;
 using SignalProject.Models.Interfaces;
@@ -56,11 +57,27 @@ namespace SignalProject.Services
 			return average;
         }
 
-		public bool DeleteSignal(String Name)
+		public bool DeleteSignal()
 		{
 			try
 			{
-				SignalsList = SignalsList.FindAll(signal => signal.name.ToString() != Name);
+				int count = 1;
+				int select;
+				Signal signal;
+
+				foreach (var item in SignalsList)
+				{
+					Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
+					count++;
+				}
+				select = Helper.ReadNum();
+
+				if (select >= count || select < 1)
+				{
+					DeleteSignal();
+				}
+
+				SignalsList.RemoveAt(select - 1);
 				SaveSignal(SignalsList);
 				return true;
 			}
@@ -126,6 +143,47 @@ namespace SignalProject.Services
 		public bool SaveSignal(List<Signal> SignalList)
 		{
 			return FileSignal.InsertSignal(SignalList);
+		}
+
+		public void AddValueSignal()
+		{
+			int count = 1;
+			int select;
+			Signal signal;
+
+            foreach (var item in SignalsList)
+            {
+				Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
+				count++;
+            }
+			select = Helper.ReadNum();
+
+			if (select >= count || select < 1)
+			{
+				AddValueSignal();
+			}
+
+			signal = SignalsList.ElementAt((select-1));
+
+			if( signal.Type == ESignalType.Continuous)
+			{
+				//HELPER -> double
+				signal.Values.Add(new Value(1.1));
+			}
+			else
+			{
+				//HELPER -> int
+				signal.Values.Add(new Value(Helper.ReadNum()));
+			}
+
+			SignalsList.RemoveAt(select-1);
+			SignalsList.Add(signal);
+			FileSignal.InsertSignal(SignalsList);
+		}
+
+		public void ShowSignal(Signal signal)
+		{
+
 		}
 
 		#endregion

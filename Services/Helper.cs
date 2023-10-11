@@ -9,7 +9,7 @@ namespace Ejercicio4List
 {
     public class Helper
     {
-        public int ReadNum()
+        public static int ReadNum()
         {
             Regex rgx = new Regex("^[0-9]+");
             String valor;
@@ -30,7 +30,7 @@ namespace Ejercicio4List
             }
             return numero;
         }
-        public String readSignal()
+        public static String readSignal()
         {
             Regex rgx = new Regex(@"\b[A-Za-z]+\b");
             String value;
