@@ -9,12 +9,12 @@ namespace SignalProject.Models
 {
     public class ContinuousSignal : Signal
     {
-		private List<Value> values;
+		private List<ValueContinuous> values;
 		public ContinuousSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
-			this.values = new List<Value>();
+			this.values = new List<ValueContinuous>();
 		}
 
-        public List<Value> Values { get => values; set => values = value; }
+        public List<ValueContinuous> Values { get => values; set => values = value; }
     }
 }

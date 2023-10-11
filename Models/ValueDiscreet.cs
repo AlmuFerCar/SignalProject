@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SignalProject.Models
 {
-	public class Value
+	public class ValueDiscreet
 	{
         public int NumberValue { get; set; }
         public DateTime Date { get; set; }
