@@ -134,7 +134,7 @@ namespace SignalProject
 					MSignals.ShowSignal(MSignals.FindSignal(name));
 					break;
 				case 2:
-                    MSignals.ShowSignal(MSignals.FindSignal(DateTime.Now));
+                    MSignals.ShowSignal(MSignals.FindSignal(DateTime.UtcNow));
 					break;
 			}
 

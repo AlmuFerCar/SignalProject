@@ -22,7 +22,14 @@ namespace SignalProject.Models
             this.CreationTime = DateTime.UtcNow;
         }
 
-        public override string ToString()
+		public Signal(ESignalName SignalName, ESignalType signalType , DateTime date)
+		{
+			this.name = SignalName;
+			this.Type = signalType;
+			this.CreationTime = date;
+		}
+
+		public override string ToString()
         {
             return name.ToString();
         }

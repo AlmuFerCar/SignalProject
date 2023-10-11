@@ -16,6 +16,10 @@ namespace SignalProject.Models
 		{
 			Values = new List<Value>();
 		}
-	
+
+		public ContinuousSignal(ESignalName SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
+		{
+			Values = new List<Value>();
+		}
 	}
 }

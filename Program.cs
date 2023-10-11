@@ -14,8 +14,13 @@ namespace SignalProject
 	{
 		public static void Main(string[] args) 
 		{
-			Menu menu = new Menu();
-			menu.ShowMainMenu();
+
+			FileSignal file = new FileSignal();
+
+			file.FindAllSignals();
+
+			//Menu menu = new Menu();
+			//menu.ShowMainMenu();
 		}
 	}
 }
