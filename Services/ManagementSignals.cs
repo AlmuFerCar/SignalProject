@@ -141,7 +141,7 @@ namespace SignalProject.Services
 
 		public bool SaveSignal(List<Signal> SignalList)
 		{
-			throw new NotImplementedException();
+			return FileSignal.InsertSignal(SignalList);
 		}
 
 		#endregion
