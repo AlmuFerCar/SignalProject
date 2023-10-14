@@ -14,7 +14,7 @@ namespace SignalProject.Services
     public class ManagementSignals : IManagementSignals
     {
 		#region -------------------------- VARIABLES ZONE --------------------------------
-		private List<Signal> SignalsList;
+		public List<Signal> SignalsList { get; }
 		private FileSignal FileSignal = new();
         #endregion
 
@@ -65,25 +65,25 @@ namespace SignalProject.Services
 			return average;
         }
 
-		public bool DeleteSignal()
+		public bool DeleteSignal(int select)
 		{
 			try
 			{
-				int count = 1;
-				int select;
+				//int count = 1;
+				//int select;
 				Signal signal;
 
-				foreach (var item in SignalsList)
-				{
-					Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
-					count++;
-				}
-				select = Helper.ReadNum();
+				//foreach (var item in SignalsList)
+				//{
+				//	Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
+				//	count++;
+				//}
+				//select = Helper.ReadNum();
 
-				if (select >= count || select < 1)
-				{
-					DeleteSignal();
-				}
+				//if (select >= count || select < 1)
+				//{
+				//	DeleteSignal();
+				//}
 
 				SignalsList.RemoveAt(select - 1);
 				SaveSignal(SignalsList);
@@ -146,23 +146,23 @@ namespace SignalProject.Services
 			return FileSignal.InsertSignal(SignalList);
 		}
 
-		public void AddValueSignal()
+		public void AddValueSignal(int select)
 		{
-			int count = 1;
-			int select;
+			//int count = 1;
+			//int select;
 			Signal signal;
 
-            foreach (var item in SignalsList)
-            {
-				Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
-				count++;
-            }
-			select = Helper.ReadNum();
+    //        foreach (var item in SignalsList)
+    //        {
+				//Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
+				//count++;
+    //        }
+			//select = Helper.ReadNum();
 
-			if (select >= count || select < 1)
-			{
-				AddValueSignal();
-			}
+			//if (select >= count || select < 1)
+			//{
+			//	AddValueSignal();
+			//}
 
 			signal = SignalsList.ElementAt((select-1));
 

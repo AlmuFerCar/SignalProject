@@ -42,6 +42,7 @@ namespace SignalProject
 		public void RunMainMenu(int select)
 		{
 			String name;
+			int canSelect;
 
             switch (select)
 			{
@@ -57,10 +58,26 @@ namespace SignalProject
 					}
 					break;
 				case 2:
-					MSignals.AddValueSignal();
+					canSelect = showSignalList();
+					if (canSelect != 0)
+					{
+						MSignals.AddValueSignal(canSelect);
+					}
+					else
+					{
+						Console.WriteLine("No hay señales creadas...");
+					}
 					break;
 				case 3:
-					MSignals.DeleteSignal();
+					canSelect = showSignalList();
+					if (canSelect != 0)
+					{
+						MSignals.DeleteSignal(canSelect);
+					}
+					else
+					{
+						Console.WriteLine("No hay señales creadas...");
+					}
 					break;
 				case 4:
 					ShowFindMenu();
@@ -144,7 +161,6 @@ namespace SignalProject
 			}
 			return created;
 		}
-		
 		public void TextFindMenu()
 		{
 			Console.WriteLine("--- BUSQUEDA SEÑAL ---");
@@ -189,6 +205,32 @@ namespace SignalProject
 					break;
 			}
 
+		}
+		public int showSignalList()
+		{
+			int count = 1;
+			int select;
+			if(MSignals.SignalsList.Count > 0)
+			{
+				foreach (var item in MSignals.SignalsList)
+				{
+					Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
+					count++;
+				}
+				select = Helper.ReadNum();
+
+				if (select >= count || select < 1)
+				{
+					showSignalList();
+				}
+
+				return select;
+			}
+			else
+			{
+				return 0;
+			}
+			
 		}
 	}
 }
