@@ -46,6 +46,7 @@ namespace SignalProject.Services
             double sumValues = 0;
             int totalValues = 0;
 			double average = 0;
+
             foreach (var item in signal.Values)
             {
 				sumValues += item.NumberValue;
