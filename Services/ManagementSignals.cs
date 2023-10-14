@@ -69,22 +69,7 @@ namespace SignalProject.Services
 		{
 			try
 			{
-				//int count = 1;
-				//int select;
 				Signal signal;
-
-				//foreach (var item in SignalsList)
-				//{
-				//	Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
-				//	count++;
-				//}
-				//select = Helper.ReadNum();
-
-				//if (select >= count || select < 1)
-				//{
-				//	DeleteSignal();
-				//}
-
 				SignalsList.RemoveAt(select - 1);
 				SaveSignal(SignalsList);
 				return true;
@@ -148,21 +133,7 @@ namespace SignalProject.Services
 
 		public void AddValueSignal(int select)
 		{
-			//int count = 1;
-			//int select;
 			Signal signal;
-
-    //        foreach (var item in SignalsList)
-    //        {
-				//Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
-				//count++;
-    //        }
-			//select = Helper.ReadNum();
-
-			//if (select >= count || select < 1)
-			//{
-			//	AddValueSignal();
-			//}
 
 			signal = SignalsList.ElementAt((select-1));
 
