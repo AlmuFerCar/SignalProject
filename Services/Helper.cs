@@ -60,15 +60,14 @@ namespace Ejercicio4List
 
             Console.Clear();
 
-            if (rgx.IsMatch(valor))
+            while (!rgx.IsMatch(valor))
             {
-                numero = Convert.ToDouble(valor);
+                Console.WriteLine("Error: escribe solo un numero decimal");
+                valor = Console.ReadLine();
+                Console.Clear();
             }
-            else
-            {
-                Console.WriteLine("Escribe solo numero porfavor!");
-                ReadNumDouble();
-            }
+
+            numero = Convert.ToDouble(valor);
             return numero;
         }
 
@@ -77,7 +76,7 @@ namespace Ejercicio4List
         {
             Regex rgx = new Regex(@"\b[A-Za-z]+\b");
             String value;
-            Console.WriteLine("Escribe una senial");
+            Console.WriteLine("Escribe una señal");
 			value = Console.ReadLine();
 
             if (!rgx.IsMatch(value))

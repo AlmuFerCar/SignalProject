@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ejercicio4List;
 using SignalProject.Models;
 using SignalProject.Models.Enum;
+using SignalProject.Models.Interfaces;
 using SignalProject.Services;
 
 namespace SignalProject
@@ -19,7 +20,7 @@ namespace SignalProject
 			Console.WriteLine("1. Añadir Señal");
 			Console.WriteLine("2. Añadir Registro Señal");
 			Console.WriteLine("3. Borrar Señal");
-			Console.WriteLine("4. Buscar Señal"); // dos opciones --> busqueda por nombre y por tiempo
+			Console.WriteLine("4. Buscar Señal");
 			Console.WriteLine("5. Media Registro Señales");
 			Console.WriteLine("6. Maximo Registro Señales");
 			Console.WriteLine("0. Salir");
@@ -58,7 +59,15 @@ namespace SignalProject
 					break;
 				case 5:
                     name = Helper.readSignal();
-                    MSignals.AverageValues(MSignals.FindSignal(name));
+                    double average = MSignals.AverageValues(MSignals.FindSignal(name));
+                    if (average > 0)
+					{
+                        Console.WriteLine($"La media de los valores de la señal {name} es: {average}");
+                    }
+					else
+					{
+                        Console.WriteLine($"La señal {name} no tiene ningún registro de valores calcular la media.");
+                    }
 					break;
 				case 6:
                      name = Helper.readSignal();
@@ -89,27 +98,54 @@ namespace SignalProject
 			switch (select)
 			{
 				case 1:
-					signal = new ContinuousSignal(ESignalName.Temperature, ESignalType.Continuous);
+					if (MSignals.CreatedSignal("Temperature"))
+					{
+						Console.WriteLine("La señal de temperatura ya está creada, puede añadir registros si lo desea");
+					}
+					else
+					{
+                        signal = new ContinuousSignal(ESignalName.Temperature, ESignalType.Continuous);
+                    }
 					break;
 				case 2:
-					signal = new DiscreetSignal(ESignalName.Switch, ESignalType.Discreet);
+                    if (MSignals.CreatedSignal("Switch"))
+                    {
+                        Console.WriteLine("La señal del interruptor ya está creada, puede añadir registros si lo desea");
+                    }
+                    else
+                    {
+                        signal = new DiscreetSignal(ESignalName.Switch, ESignalType.Discreet);
+                    }
 					break;
 				case 3:
-					signal = new ContinuousSignal(ESignalName.Volume, ESignalType.Continuous);
+                    if (MSignals.CreatedSignal("Volume"))
+                    {
+                        Console.WriteLine("La señal de Volumen ya está creada, puede añadir registros si lo desea");
+                    }
+                    else
+                    {
+                        signal = new ContinuousSignal(ESignalName.Volume, ESignalType.Continuous);
+                    }
 					break;
 				case 4:
-					signal = new ContinuousSignal(ESignalName.Pressure, ESignalType.Continuous);
+                    if (MSignals.CreatedSignal("Pressure"))
+                    {
+                        Console.WriteLine("La señal de presión ya está creada, puede añadir registros si lo desea");
+                    }
+                    else
+                    {
+                        signal = new ContinuousSignal(ESignalName.Pressure, ESignalType.Continuous);
+                    }
 					break;
 			}
-
 			return signal;
 		}
 
 		public void TextFindMenu()
 		{
 			Console.WriteLine("--- BUSQUEDA SEÑAL ---");
-			Console.WriteLine("1. Nombre");
-			Console.WriteLine("2. Fecha");
+			Console.WriteLine("1. Por Nombre");
+			Console.WriteLine("2. Por Fecha");
 			Console.WriteLine("0. Salir");
 		}
 		public void ShowFindMenu()
@@ -134,7 +170,18 @@ namespace SignalProject
 					MSignals.ShowSignal(MSignals.FindSignal(name));
 					break;
 				case 2:
-                    MSignals.ShowSignal(MSignals.FindSignal(DateTime.UtcNow));
+					Console.Write("DÍA: ");
+                    int day = Helper.ReadNum();
+                    Console.Write("MES: ");
+                    int month = Helper.ReadNum();
+                    Console.Write("AÑO: ");
+                    int year = Helper.ReadNum();
+                    DateTime fechaBusqueda = new DateTime(year, month, day);
+
+					foreach (String listSIgnalDate in MSignals.FindSignal(fechaBusqueda))
+					{ 
+						Console.WriteLine($"{listSIgnalDate}");
+					}
 					break;
 			}
 

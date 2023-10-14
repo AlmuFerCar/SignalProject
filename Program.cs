@@ -15,12 +15,12 @@ namespace SignalProject
 		public static void Main(string[] args) 
 		{
 
-			FileSignal file = new FileSignal();
+			//FileSignal file = new FileSignal();
 
-			file.FindAllSignals();
+			//file.FindAllSignals();
 
-			//Menu menu = new Menu();
-			//menu.ShowMainMenu();
+			Menu menu = new Menu();
+			menu.ShowMainMenu();
 		}
 	}
 }

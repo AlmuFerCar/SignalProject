@@ -13,7 +13,9 @@ namespace SignalProject.Models.Interfaces
         public bool SaveSignal(List<Signal> SignalList);
         public double MaxValue(Signal signal);
         public double AverageValues(Signal signal);
-        public Signal FindSignal(DateTime date);
+        public List<String> FindSignal(DateTime date);
         public Signal FindSignal(string name);
+
+        public bool CreatedSignal(string name);
     }
 }

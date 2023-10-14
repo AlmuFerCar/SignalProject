@@ -24,9 +24,16 @@ namespace SignalProject.Services
         {
 			try
 			{
-				SignalsList.Add(Signal);
-				SaveSignal(SignalsList);
-				return true;
+				if (Signal != null)
+				{
+					SignalsList.Add(Signal);
+					SaveSignal(SignalsList);
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 			catch (Exception)
 			{
@@ -39,7 +46,6 @@ namespace SignalProject.Services
             double sumValues = 0;
             int totalValues = 0;
 			double average = 0;
-
             foreach (var item in signal.Values)
             {
 				sumValues += item.NumberValue;
@@ -49,13 +55,7 @@ namespace SignalProject.Services
             if (totalValues > 0)
             {
                 average = sumValues / totalValues;
-                Console.WriteLine("La media de todos los valores de todas las señales es: " + average);
             }
-            else
-            {
-                Console.WriteLine("No hay valores en las señales para calcular la media.");
-            }
-
 			return average;
         }
 
@@ -89,19 +89,20 @@ namespace SignalProject.Services
 			}			
 		}
 
-		public Signal FindSignal(DateTime date)
+		public List<String> FindSignal(DateTime date)
 		{
-			//Signal signal;
-			//         try
-			//         {
-			//             signal = SignalsList.Find(signal => signal.name.ToString() == date);
-			//             return signal;
-			//         }
-			//         catch (Exception)
-			//         {
-			//             return null;
-			//         }
-			return null;
+			List<String> SignalsByDate = new List<String>();
+            foreach (var signals in SignalsList)
+            {
+                foreach (var values in signals.Values)
+                {
+                    if (values.Date.Date == date.Date)
+                    {
+						SignalsByDate.Add("Señal: "+signals+Environment.NewLine +"Fecha del registro: "+values.Date+ " con valor: "+values.NumberValue);
+                    }
+                }
+            }
+			return SignalsByDate;
         }
 
 		public Signal FindSignal(string name)
@@ -182,13 +183,29 @@ namespace SignalProject.Services
 			else
 			{
                 Console.WriteLine($"Señal de: {signal.name} es de tipo: {signal.Type} su fecha de creación es: {signal.CreationTime}");
-                Console.WriteLine("con valores: ");
-                foreach (var item in signal.Values)
-                {
-                    Console.WriteLine($"Valor: {item.NumberValue} Fecha: {item.Date}");
+				if (signal.Values != null)
+				{
+                    Console.WriteLine("con valores: ");
+                    foreach (var item in signal.Values)
+                    {
+                        Console.WriteLine($"Valor: {item.NumberValue} Fecha: {item.Date}");
+                    }
                 }
             }
 		}
-		#endregion
-	}
+
+		public bool CreatedSignal(string name)
+		{
+			bool signalIsCreated = false;
+            foreach (Signal itemSignal in SignalsList)
+            {
+				if (itemSignal.name.ToString() == name)
+				{ 
+					signalIsCreated = true;
+				}
+            }
+            return signalIsCreated;
+		}
+        #endregion
+    }
 }
