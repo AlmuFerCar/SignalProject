@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ejercicio4List;
 using SignalProject.Models;
 using SignalProject.Models.Enum;
 using SignalProject.Models.Interfaces;
@@ -16,38 +17,59 @@ namespace SignalProject.Services
 
 		public List<Signal> FindAllSignals()
         {
-			List<Signal> Signals = new();
-			String[] FileList;
-			ESignalName eSignalName;
-			ESignalType eSignalType;
-			String[] ValuesList;
-
-			ContinuousSignal continuousSignal;
-
-			using (StreamReader sr = File.OpenText(path))
+			try
 			{
-				string s;
-				while ((s = sr.ReadLine()) != null)
+				List<Signal> Signals = new();
+				String[] FileList;
+				ESignalName eSignalName;
+				ESignalType eSignalType;
+				String[] ValuesList;
+
+				Signal Signal;
+
+				using (StreamReader sr = File.OpenText(path))
 				{
-					FileList = s.Split('-');
-					Enum.TryParse(FileList[0], out eSignalName);
-					Enum.TryParse(FileList[1], out eSignalType);
-					continuousSignal = new ContinuousSignal(eSignalName, eSignalType, DateTime.UtcNow);
-					ValuesList = FileList[3].Split(";");
-
-					for(int i = 0; i < ValuesList.Length; i++)
+					string s;
+					while ((s = sr.ReadLine()) != null)
 					{
-						if (ValuesList[i] != "")
-						{
-	
-							continuousSignal.Values.Add(new Value(Convert.ToDouble(ValuesList[i].Split("*")[0]), DateTime.UtcNow));
-						}
-					}
+						FileList = s.Split('-');
+						Enum.TryParse(FileList[0], out eSignalName);
+						Enum.TryParse(FileList[1], out eSignalType);
 
-					Signals.Add(continuousSignal);
+						if(eSignalType.ToString() == "Continuous")
+						{
+							Signal = new ContinuousSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+						}
+						else
+						{
+							Signal = new DiscreetSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+						}
+						
+
+
+						ValuesList = FileList[3].Split(";");
+
+						for (int i = 0; i < ValuesList.Length; i++)
+						{
+							if (ValuesList[i] != " " && ValuesList[i] != "")
+							{
+								Signal.Values.Add(new Value(Convert.ToDouble(ValuesList[i].Split("*")[0]), Helper.DateStringParser(ValuesList[i].Split("*")[1].Trim())));
+							}
+						}
+
+						Signals.Add(Signal);
+					}
 				}
+
+				if (Signals == null)  Signals = new();
+
+				return Signals;
 			}
-			return Signals;
+			catch (Exception)
+			{
+
+				throw;
+			}
 		}
 
         public Signal FindSignalByName(string name)

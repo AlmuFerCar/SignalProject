@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -70,8 +71,11 @@ namespace Ejercicio4List
             numero = Convert.ToDouble(valor);
             return numero;
         }
-
-        
+        public static DateTime DateStringParser(string dateString) 
+        {
+            DateTime date = DateTime.ParseExact(dateString, "dd/MM/yyyy H:mm:ss", CultureInfo.InvariantCulture);
+            return date;
+        }
         public static String readSignal()
         {
             Regex rgx = new Regex(@"\b[A-Za-z]+\b");

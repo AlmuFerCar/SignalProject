@@ -13,10 +13,15 @@ namespace SignalProject.Services
 {
     public class ManagementSignals : IManagementSignals
     {
-        #region -------------------------- VARIABLES ZONE --------------------------------
-		private List<Signal> SignalsList = new();
+		#region -------------------------- VARIABLES ZONE --------------------------------
+		private List<Signal> SignalsList;
 		private FileSignal FileSignal = new();
         #endregion
+
+		public ManagementSignals() 
+		{ 
+			this.SignalsList = FileSignal.FindAllSignals();
+		}
 
         #region -------------------------- METHODS ZONE --------------------------------
 
@@ -177,6 +182,7 @@ namespace SignalProject.Services
 
 		public void ShowSignal(Signal signal)
 		{
+			Console.Clear();
 			if (signal == null)
 			{
 				Console.WriteLine("No existe esta señal");
@@ -184,18 +190,22 @@ namespace SignalProject.Services
 			else
 			{
                 Console.WriteLine($"Señal de: {signal.name} es de tipo: {signal.Type} su fecha de creación es: {signal.CreationTime}");
-				if (signal.Values != null)
+				if (signal.Values.Count > 0)
 				{
                     Console.WriteLine("con valores: ");
                     foreach (var item in signal.Values)
                     {
                         Console.WriteLine($"Valor: {item.NumberValue} Fecha: {item.Date}");
                     }
-                }
+				}
+				else
+				{
+					Console.WriteLine("No hay valores añadidos...");
+				}
             }
 		}
 
-		public bool CreatedSignal(string name)
+		public bool IsCreatedSignal(string name)
 		{
 			bool signalIsCreated = false;
             foreach (Signal itemSignal in SignalsList)
@@ -207,6 +217,7 @@ namespace SignalProject.Services
             }
             return signalIsCreated;
 		}
-        #endregion
-    }
+
+		#endregion
+	}
 }

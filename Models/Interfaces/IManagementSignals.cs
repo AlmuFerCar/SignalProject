@@ -16,6 +16,6 @@ namespace SignalProject.Models.Interfaces
         public List<String> FindSignal(DateTime date);
         public Signal FindSignal(string name);
 
-        public bool CreatedSignal(string name);
+        public bool IsCreatedSignal(string name);
     }
 }
