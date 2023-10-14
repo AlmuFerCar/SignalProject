@@ -17,5 +17,6 @@ namespace SignalProject.Models.Interfaces
         public Signal FindSignal(string name);
         public void AddValueSignal(int select);
 		public bool IsCreatedSignal(string name);
+        public Dictionary<String, int> NumOpenCloseSwitch(Signal signal);
     }
 }

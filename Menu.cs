@@ -23,6 +23,7 @@ namespace SignalProject
 			Console.WriteLine("4. Buscar Señal");
 			Console.WriteLine("5. Media Registro Señales");
 			Console.WriteLine("6. Maximo Registro Señales");
+			Console.WriteLine("7. Numero Abierto y Cerrado");
 			Console.WriteLine("0. Salir");
 		}
 
@@ -96,8 +97,22 @@ namespace SignalProject
 					break;
 				case 6:
                      name = Helper.readSignal();
-                    Console.WriteLine("El valor maximo de la señal de "+name+" es: "+MSignals.MaxValue(MSignals.FindSignal(name)));
+                     Console.WriteLine("El valor maximo de la señal de "+name+" es: "+MSignals.MaxValue(MSignals.FindSignal(name)));
+					 break;
+				case 7:
+					Dictionary<String, int> OpenCloseList;
+					name = Helper.readSignal();
+					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).name.ToString() == "Switch")
+					{
+						OpenCloseList = MSignals.NumOpenCloseSwitch(MSignals.FindSignal(name));
+						Console.WriteLine($"El numero de veces que se ha encendido y apagado de la señal{name} es: Encendido: {OpenCloseList["open"]} Apagado: {OpenCloseList["close"]}");
+					}
+					else
+					{
+						Console.WriteLine("La señal no es un Switch");
+					}
 					break;
+
 			}
 		}
 
