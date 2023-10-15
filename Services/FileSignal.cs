@@ -75,17 +75,6 @@ namespace SignalProject.Services
 				throw;
 			}
 		}
-
-        public Signal FindSignalByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Signal FindSignalByTime(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool InsertSignal(List<Signal> SignalList)
         {
 			try
