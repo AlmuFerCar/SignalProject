@@ -24,7 +24,6 @@ namespace SignalProject.Services
 		}
 
         #region -------------------------- METHODS ZONE --------------------------------
-
         public bool AddSignal(Signal Signal)
         {
 			try
@@ -45,26 +44,6 @@ namespace SignalProject.Services
 				return false;
 			}	
 		}
-
-		public double AverageValues(Signal signal)
-		{
-            double sumValues = 0;
-            int totalValues = 0;
-			double average = 0;
-
-            foreach (var item in signal.Values)
-            {
-				sumValues += item.NumberValue;
-				totalValues++;
-            }
-
-            if (totalValues > 0)
-            {
-                average = sumValues / totalValues;
-            }
-			return average;
-        }
-
 		public bool DeleteSignal(int select)
 		{
 			try
@@ -79,7 +58,6 @@ namespace SignalProject.Services
 				return false;
 			}			
 		}
-
 		public List<String> FindSignal(DateTime date)
 		{
 			List<String> SignalsByDate = new List<String>();
@@ -95,7 +73,6 @@ namespace SignalProject.Services
             }
 			return SignalsByDate;
         }
-
 		public Signal FindSignal(string name)
 		{
 			Signal signal;
@@ -109,28 +86,10 @@ namespace SignalProject.Services
 				return null;
 			}			 
 		}
-
-		public double MaxValue(Signal signal)
-		{
-            ESignalName nameSignalMaxValue;
-			double maxValueSignal = 0;
-            DateTime dateSignalMaxValue;
-
-            foreach (var itemSignal in signal.Values)
-            {
-				if (itemSignal.NumberValue > maxValueSignal)
-				{ 
-					maxValueSignal = itemSignal.NumberValue;
-				}
-            }
-			return maxValueSignal;
-        }
-
 		public bool SaveSignal(List<Signal> SignalList)
 		{
 			return FileSignal.InsertSignal(SignalList);
 		}
-
 		public void AddValueSignal(int select)
 		{
 			Signal signal;
@@ -150,7 +109,6 @@ namespace SignalProject.Services
 			SignalsList.Add(signal);
 			FileSignal.InsertSignal(SignalsList);
 		}
-
 		public void ShowSignal(Signal signal)
 		{
 			Console.Clear();
@@ -175,7 +133,6 @@ namespace SignalProject.Services
 				}
             }
 		}
-
 		public bool IsCreatedSignal(string name)
 		{
 			bool signalIsCreated = false;
@@ -188,31 +145,6 @@ namespace SignalProject.Services
             }
             return signalIsCreated;
 		}
-
-		public Dictionary<String,int> NumOpenCloseSwitch(Signal signal)
-		{
-			Dictionary<String, int> OpenCloseList = new Dictionary<String, int>();
-			int open = 0;
-			int close = 0;	
-
-			foreach (Value value in signal.Values)
-			{
-				if (value.NumberValue == 1)
-				{
-					open++;
-				}
-				else
-				{
-					close++;
-				}
-			}
-
-			OpenCloseList.Add("open", open);
-			OpenCloseList.Add("close", close);
-
-			return OpenCloseList;
-		}
-
 		#endregion
 	}
 }

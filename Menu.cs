@@ -14,6 +14,8 @@ namespace SignalProject
 	public class Menu
 	{
 		private ManagementSignals MSignals = new();
+		private SignalCalculations SignalCalculation = new();
+
 		public void TextMainMenu()
 		{
 			Console.WriteLine("--- APLICACION DE SEÑALES ---");
@@ -85,7 +87,7 @@ namespace SignalProject
 					break;
 				case 5:
                     name = Helper.readSignal();
-                    double average = MSignals.AverageValues(MSignals.FindSignal(name));
+                    double average = SignalCalculation.AverageValues(MSignals.FindSignal(name));
                     if (average > 0)
 					{
                         Console.WriteLine($"La media de los valores de la señal {name} es: {average}");
@@ -97,14 +99,14 @@ namespace SignalProject
 					break;
 				case 6:
                      name = Helper.readSignal();
-                     Console.WriteLine("El valor maximo de la señal de "+name+" es: "+MSignals.MaxValue(MSignals.FindSignal(name)));
+                     Console.WriteLine("El valor maximo de la señal de "+name+" es: "+ SignalCalculation.MaxValue(MSignals.FindSignal(name)));
 					 break;
 				case 7:
 					Dictionary<String, int> OpenCloseList;
 					name = Helper.readSignal();
 					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).Type.ToString() == "Discreet")
 					{
-						OpenCloseList = MSignals.NumOpenCloseSwitch(MSignals.FindSignal(name));
+						OpenCloseList = SignalCalculation.NumOpenCloseSwitch(MSignals.FindSignal(name));
 						Console.WriteLine($"El numero de veces que se ha encendido y apagado de la señal{name} es: Encendido: {OpenCloseList["open"]} Apagado: {OpenCloseList["close"]}");
 					}
 					else
