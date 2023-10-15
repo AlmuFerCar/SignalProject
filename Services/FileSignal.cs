@@ -65,6 +65,10 @@ namespace SignalProject.Services
 
 				return Signals;
 			}
+			catch (FileNotFoundException)
+			{
+				return new List<Signal>();
+			}
 			catch (Exception)
 			{
 
