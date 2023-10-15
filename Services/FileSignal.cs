@@ -12,56 +12,56 @@ namespace SignalProject.Services
 {
     public class FileSignal : IFileSignal
     {
-		private string path = @"C:\Users\iscastro\Desktop\Signals.txt";
-		//private String path = "";
+        //private string path = @"C:\Users\iscastro\Desktop\Signals.txt";
+        public string path = @"C:\Users\almfernandez\Desktop\Formacion_GESTAMP\Signals.txt";
 
-		public List<Signal> FindAllSignals()
+        public List<Signal> FindAllSignals()
         {
-			try
-			{
-				List<Signal> Signals = new();
-				String[] FileList;
-				ESignalName eSignalName;
-				ESignalType eSignalType;
-				String[] ValuesList;
+            try
+            {
+                List<Signal> Signals = new();
+                String[] FileList;
+                ESignalName eSignalName;
+                ESignalType eSignalType;
+                String[] ValuesList;
 
-				Signal Signal;
+                Signal Signal;
 
-				using (StreamReader sr = File.OpenText(path))
-				{
-					string s;
-					while ((s = sr.ReadLine()) != null)
-					{
-						FileList = s.Split('-');
-						Enum.TryParse(FileList[0], out eSignalName);
-						Enum.TryParse(FileList[1], out eSignalType);
+                using (StreamReader sr = File.OpenText(path))
+                {
+                    string s;
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        FileList = s.Split('-');
+                        Enum.TryParse(FileList[0], out eSignalName);
+                        Enum.TryParse(FileList[1], out eSignalType);
 
-						if(eSignalType.ToString() == "Continuous")
-						{
-							Signal = new ContinuousSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
-						}
-						else
-						{
-							Signal = new DiscreetSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
-						}
-						
+                        if (eSignalType.ToString() == "Continuous")
+                        {
+                            Signal = new ContinuousSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+                        }
+                        else
+                        {
+                            Signal = new DiscreetSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+                        }
 
 
-						ValuesList = FileList[3].Split(";");
 
-						for (int i = 0; i < ValuesList.Length; i++)
-						{
-							if (ValuesList[i] != " " && ValuesList[i] != "")
-							{
-								Signal.Values.Add(new Value(Convert.ToDouble(ValuesList[i].Split("*")[0]), Helper.DateStringParser(ValuesList[i].Split("*")[1].Trim())));
-							}
-						}
+                        ValuesList = FileList[3].Split(";");
 
-						Signals.Add(Signal);
-					}
-				}
+                        for (int i = 0; i < ValuesList.Length; i++)
+                        {
+                            if (ValuesList[i] != " " && ValuesList[i] != "")
+                            {
+                                Signal.Values.Add(new Value(Convert.ToDouble(ValuesList[i].Split("*")[0]), Helper.DateStringParser(ValuesList[i].Split("*")[1].Trim())));
+                            }
+                        }
 
-				if (Signals == null)  Signals = new();
+                        Signals.Add(Signal);
+                    }
+                }
+
+                if (Signals == null) Signals = new();
 
 				return Signals;
 			}

@@ -115,14 +115,21 @@ namespace SignalProject
 
 			}
 		}
-
 		public Signal ReadTypeSignal()
 		{
 			int cont = 1;
 			int select;
 			Signal signal = null;
 
-			Console.WriteLine("Que senal quieres anadir:");
+			Dictionary<int, (string name, ESignalType type)> signalTypes = new Dictionary<int, (string, ESignalType)>
+			{
+				{ 1, ("Temperature", ESignalType.Continuous) },
+				{ 2, ("Switch", ESignalType.Discreet) },
+				{ 3, ("Volume", ESignalType.Continuous) },
+				{ 4, ("Pressure", ESignalType.Continuous) }
+			};
+
+			Console.WriteLine("Que señal quieres anadir:");
 			foreach (ESignalName name in ESignalName.GetValues(typeof(ESignalName)))
 			{
 				Console.WriteLine(cont + ". " + name);
@@ -130,53 +137,28 @@ namespace SignalProject
 			}
 			select = Helper.ReadNum();
 
-			if(select >= cont || select <= 0)
+			if (select >= cont || select <= 0)
 			{
 				ReadTypeSignal();
 			}
-
-			if(!CheckSignalExists(select))
+			if (signalTypes.ContainsKey(select))
 			{
-				switch (select)
+				var (signalName, signalType) = signalTypes[select];
+
+				if (MSignals.IsCreatedSignal(signalName))
 				{
-					case 1:
-						signal = new ContinuousSignal(ESignalName.Temperature, ESignalType.Continuous);
-						break;
-					case 2:
-						signal = new DiscreetSignal(ESignalName.Switch, ESignalType.Discreet);
-						break;
-					case 3:
-						signal = new ContinuousSignal(ESignalName.Volume, ESignalType.Continuous);
-						break;
-					case 4:
-						signal = new ContinuousSignal(ESignalName.Pressure, ESignalType.Continuous);
-						break;
+					Console.WriteLine($"La señal de {signalName} ya está creada, puede añadir registros si lo desea");
+				}
+				else
+				{
+					signal = signalType == ESignalType.Continuous
+						? new ContinuousSignal((ESignalName)Enum.Parse(typeof(ESignalName), signalName), ESignalType.Continuous)
+						: new DiscreetSignal((ESignalName)Enum.Parse(typeof(ESignalName), signalName), ESignalType.Discreet);
 				}
 			}
-			return signal;
-		}
-		public bool CheckSignalExists(int select)
-		{
-			bool created = false;
-
-			switch(select)
-			{
-				case 1:
-					created = MSignals.IsCreatedSignal("Temperature");
-					break;
-				case 2:
-					created = MSignals.IsCreatedSignal("Switch");
-					break;
-				case 3:
-					created = MSignals.IsCreatedSignal("Volume");
-					break;
-				case 4:
-					created = MSignals.IsCreatedSignal("Pressure");
-					break;
-			}
-			return created;
-		}
-		public void TextFindMenu()
+            return signal;
+        }
+        public void TextFindMenu()
 		{
 			Console.WriteLine("--- BUSQUEDA SEÑAL ---");
 			Console.WriteLine("1. Por Nombre");
