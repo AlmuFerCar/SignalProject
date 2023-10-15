@@ -102,14 +102,14 @@ namespace SignalProject
 				case 7:
 					Dictionary<String, int> OpenCloseList;
 					name = Helper.readSignal();
-					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).name.ToString() == "Switch")
+					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).Type.ToString() == "Discreet")
 					{
 						OpenCloseList = MSignals.NumOpenCloseSwitch(MSignals.FindSignal(name));
 						Console.WriteLine($"El numero de veces que se ha encendido y apagado de la señal{name} es: Encendido: {OpenCloseList["open"]} Apagado: {OpenCloseList["close"]}");
 					}
 					else
 					{
-						Console.WriteLine("La señal no es un Switch");
+						Console.WriteLine("La señal no es de tipo discreto");
 					}
 					break;
 
