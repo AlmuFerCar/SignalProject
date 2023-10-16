@@ -8,7 +8,7 @@ namespace SignalProject.Models.Interfaces
 {
     public interface IFileSignal
     {
-        public List<Signal> FindAllSignals();
+        public List<Signal> GetAllSignals();
         public bool InsertSignal(List<Signal> SignalList);
     }
 }

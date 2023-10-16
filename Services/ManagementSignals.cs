@@ -20,7 +20,7 @@ namespace SignalProject.Services
 
 		public ManagementSignals() 
 		{ 
-			this.SignalsList = FileSignal.FindAllSignals();
+			this.SignalsList = FileSignal.GetAllSignals();
 		}
 
         #region -------------------------- METHODS ZONE --------------------------------

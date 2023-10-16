@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ejercicio4List;
-using SignalProject.Models;
+﻿using SignalProject.Models;
 using SignalProject.Models.Enum;
 using SignalProject.Models.Interfaces;
 
@@ -16,7 +10,7 @@ namespace SignalProject.Services
         public static string proyectoPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\"));
         string path = Path.Combine(proyectoPath, "SignalFile.txt");
 
-        public List<Signal> FindAllSignals()
+        public List<Signal> GetAllSignals()
         {
             try
             {
