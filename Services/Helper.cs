@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Ejercicio4List
+namespace SignalProject.Services
 {
     public class Helper
     {
