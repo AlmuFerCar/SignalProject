@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Ejercicio4List;
-using SignalProject.Models;
+﻿using SignalProject.Models;
 using SignalProject.Models.Enum;
 using SignalProject.Models.Interfaces;
 
@@ -96,7 +89,7 @@ namespace SignalProject.Services
 
 			signal = SignalsList.ElementAt((select-1));
 
-			if( signal.Type == ESignalType.Continuous)
+			if( signal.Type == ESignalType.Analog)
 			{
 				signal.Values.Add(new Value(Helper.ReadNumDouble()));
 			}
@@ -135,14 +128,7 @@ namespace SignalProject.Services
 		}
 		public bool IsCreatedSignal(string name)
 		{
-			bool signalIsCreated = false;
-            foreach (Signal itemSignal in SignalsList)
-            {
-				if (itemSignal.name.ToString() == name)
-				{ 
-					signalIsCreated = true;
-				}
-            }
+            bool signalIsCreated = SignalsList.Any(itemSignal => itemSignal.name.ToString().ToLower() == name.ToLower());
             return signalIsCreated;
 		}
 		#endregion

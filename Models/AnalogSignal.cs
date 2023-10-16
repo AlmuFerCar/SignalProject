@@ -9,13 +9,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SignalProject.Models
 {
-    public class ContinuousSignal : Signal
+    public class AnalogSignal : Signal
     {
-		public ContinuousSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
+		public AnalogSignal(string SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
 			Values = new List<Value>();
 		}
-		public ContinuousSignal(ESignalName SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
+		public AnalogSignal(string SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
 		{
 			Values = new List<Value>();
 		}

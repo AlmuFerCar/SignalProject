@@ -7,14 +7,14 @@ using SignalProject.Models.Enum;
 
 namespace SignalProject.Models
 {
-    public class DiscreetSignal : Signal
+    public class DigitalSignal : Signal
     {
-		public DiscreetSignal(ESignalName SignalName, ESignalType signalType) : base(SignalName, signalType)
+		public DigitalSignal(string SignalName, ESignalType signalType) : base(SignalName, signalType)
 		{
 			Values = new List<Value>();
 		}
 
-		public DiscreetSignal(ESignalName SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
+		public DigitalSignal(string SignalName, ESignalType signalType, DateTime date) : base(SignalName, signalType, date)
 		{
 			Values = new List<Value>();
 		}

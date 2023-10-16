@@ -16,7 +16,7 @@ namespace SignalProject.Services
             {
                 List<Signal> Signals = new();
                 String[] FileList;
-                ESignalName eSignalName;
+                string SignalName;
                 ESignalType eSignalType;
                 String[] ValuesList;
 
@@ -28,16 +28,16 @@ namespace SignalProject.Services
                     while ((s = sr.ReadLine()) != null)
                     {
                         FileList = s.Split('-');
-                        Enum.TryParse(FileList[0], out eSignalName);
+                        SignalName = FileList[0];
                         Enum.TryParse(FileList[1], out eSignalType);
 
                         if (eSignalType.ToString() == "Continuous")
                         {
-                            Signal = new ContinuousSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+                            Signal = new AnalogSignal(SignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
                         }
                         else
                         {
-                            Signal = new DiscreetSignal(eSignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+                            Signal = new DigitalSignal(SignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
                         }
 
 

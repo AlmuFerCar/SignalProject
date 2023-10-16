@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ejercicio4List;
-using SignalProject.Models;
+﻿using SignalProject.Models;
 using SignalProject.Models.Enum;
-using SignalProject.Models.Interfaces;
 using SignalProject.Services;
 
 namespace SignalProject
@@ -104,60 +97,57 @@ namespace SignalProject
 				case 7:
 					Dictionary<String, int> OpenCloseList;
 					name = Helper.readSignal();
-					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).Type.ToString() == "Discreet")
+					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).Type.ToString() == "Digital")
 					{
 						OpenCloseList = SignalCalculation.NumOpenCloseSwitch(MSignals.FindSignal(name));
 						Console.WriteLine($"El numero de veces que se ha encendido y apagado de la señal{name} es: Encendido: {OpenCloseList["open"]} Apagado: {OpenCloseList["close"]}");
 					}
 					else
 					{
-						Console.WriteLine("La señal no es de tipo discreto");
+						Console.WriteLine("La señal no es de tipo digital");
 					}
 					break;
 
 			}
 		}
-		public Signal ReadTypeSignal()
-		{
-			int cont = 1;
-			int select;
-			Signal signal = null;
 
-			Dictionary<int, (string name, ESignalType type)> signalTypes = new Dictionary<int, (string, ESignalType)>
+        public Signal ReadTypeSignal()
+        {
+            int cont = 1;
+            int select;
+            Signal signal = null;
+
+            Dictionary<int, ESignalType> signalTypes = new Dictionary<int, ESignalType>
 			{
-				{ 1, ("Temperature", ESignalType.Continuous) },
-				{ 2, ("Switch", ESignalType.Discreet) },
-				{ 3, ("Volume", ESignalType.Continuous) },
-				{ 4, ("Pressure", ESignalType.Continuous) }
+				{ 1, ESignalType.Analog },
+				{ 2, ESignalType.Digital }
 			};
 
-			Console.WriteLine("Que señal quieres anadir:");
-			foreach (ESignalName name in ESignalName.GetValues(typeof(ESignalName)))
-			{
-				Console.WriteLine(cont + ". " + name);
-				cont++;
-			}
-			select = Helper.ReadNum();
+            Console.WriteLine("Elija el tipo de señal:");
+            foreach (var signalType in signalTypes)
+            {
+                Console.WriteLine($"{cont}. {signalType.Value}");
+                cont++;
+            }
+            select = Helper.ReadNum();
 
-			if (select >= cont || select <= 0)
-			{
-				ReadTypeSignal();
-			}
-			if (signalTypes.ContainsKey(select))
-			{
-				var (signalName, signalType) = signalTypes[select];
+            if (select >= cont || select <= 0)
+            {
+                ReadTypeSignal();
+            }
+            else
+            {
+                Console.WriteLine("Ingrese el nombre de la señal:");
+                string signalName = Helper.readSignal();
 
-				if (MSignals.IsCreatedSignal(signalName))
-				{
-					Console.WriteLine($"La señal de {signalName} ya está creada, puede añadir registros si lo desea");
-				}
-				else
-				{
-					signal = signalType == ESignalType.Continuous
-						? new ContinuousSignal((ESignalName)Enum.Parse(typeof(ESignalName), signalName), ESignalType.Continuous)
-						: new DiscreetSignal((ESignalName)Enum.Parse(typeof(ESignalName), signalName), ESignalType.Discreet);
-				}
-			}
+                if (!MSignals.IsCreatedSignal(signalName))
+                {
+                    ESignalType signalType = signalTypes[select];
+                    signal = signalType == ESignalType.Analog
+                        ? new AnalogSignal(signalName, ESignalType.Analog)
+                        : new DigitalSignal(signalName, ESignalType.Digital);
+                }
+            }
             return signal;
         }
         public void TextFindMenu()
@@ -213,7 +203,7 @@ namespace SignalProject
 			{
 				foreach (var item in MSignals.SignalsList)
 				{
-					Console.WriteLine($"{count}. Nombre: {item.name.ToString()} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
+					Console.WriteLine($"{count}. Nombre: {item.name} Tipo: {item.Type} Fecha Creacion: {item.CreationTime}");
 					count++;
 				}
 				select = Helper.ReadNum();

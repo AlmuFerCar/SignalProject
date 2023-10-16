@@ -8,7 +8,7 @@ namespace SignalProject.Models.Enum
 {
     public enum ESignalType
     {
-        Continuous,
-        Discreet
+        Analog,
+        Digital
     }
 }

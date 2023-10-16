@@ -30,9 +30,7 @@ namespace SignalProject.Services
 		}
 		public double MaxValue(Signal signal)
 		{
-			ESignalName nameSignalMaxValue;
 			double maxValueSignal = 0;
-			DateTime dateSignalMaxValue;
 
 			foreach (var itemSignal in signal.Values)
 			{
