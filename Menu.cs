@@ -1,6 +1,7 @@
 ﻿using SignalProject.Models;
 using SignalProject.Models.Enum;
 using SignalProject.Services;
+using SignalProject.Services.Strategy;
 
 namespace SignalProject
 {
@@ -80,8 +81,10 @@ namespace SignalProject
 					break;
 				case 5:
                     name = Helper.readSignal();
-                    double average = SignalCalculation.AverageValues(MSignals.FindSignal(name));
-                    if (average > 0)
+					SignalCalculation.SetStrategy(new AverageValue());
+					var AverageResult = SignalCalculation.DoSomeBusinessLogic(MSignals.FindSignal(name));
+					Double average = Convert.ToDouble(AverageResult);
+					if (average > 0)
 					{
                         Console.WriteLine($"La media de los valores de la señal {name} es: {average}");
                     }
@@ -92,14 +95,16 @@ namespace SignalProject
 					break;
 				case 6:
                      name = Helper.readSignal();
-                     Console.WriteLine("El valor maximo de la señal de "+name+" es: "+ SignalCalculation.MaxValue(MSignals.FindSignal(name)));
+					 SignalCalculation.SetStrategy(new MaxValue());
+					 var MaxValue = SignalCalculation.DoSomeBusinessLogic(MSignals.FindSignal(name));
+					 Console.WriteLine($"El valor maximo de {name} es: {MaxValue} ");
 					 break;
 				case 7:
-					Dictionary<String, int> OpenCloseList;
 					name = Helper.readSignal();
-					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).Type.ToString() == "Digital")
+					SignalCalculation.SetStrategy(new NumOpenClose());
+					if (MSignals.FindSignal(name) != null && MSignals.FindSignal(name).Type.ToString().Equals("Digital"))
 					{
-						OpenCloseList = SignalCalculation.NumOpenCloseSwitch(MSignals.FindSignal(name));
+						var OpenCloseList = SignalCalculation.DoSomeBusinessLogic(MSignals.FindSignal(name)) as Dictionary<String,int>;
 						Console.WriteLine($"El numero de veces que se ha encendido y apagado de la señal{name} es: Encendido: {OpenCloseList["open"]} Apagado: {OpenCloseList["close"]}");
 					}
 					else

@@ -12,24 +12,19 @@ namespace SignalProject.Services
     {
         public static int ReadNum()
         {
-            Regex rgx = new Regex("^[0-9]+");
+            Regex rgx = new Regex("^[0-9]+$");
             String valor;
             int numero = 0;
             Console.WriteLine("Escribe un numero");
             valor = Console.ReadLine();
 
-            Console.Clear();
-
-            if (rgx.IsMatch(valor))
+			while (!rgx.IsMatch(valor))
             {
-                numero = Convert.ToInt32(valor);
-            }
-            else
-            {
-                Console.WriteLine("Escribe solo numero porfavor!");
-                ReadNum();
-            }
-            return numero;
+				Console.WriteLine("Escribe un numero");
+				valor = Console.ReadLine();
+			}
+			numero = Convert.ToInt32(valor);
+			return numero;
         }
         public static int ReadNumBit()
         {
@@ -73,7 +68,7 @@ namespace SignalProject.Services
         }
         public static DateTime DateStringParser(string dateString) 
         {
-            DateTime date = DateTime.ParseExact(dateString, "dd/MM/yyyy H:mm:ss", CultureInfo.InvariantCulture);
+            DateTime date = DateTime.ParseExact(dateString.Trim(), "dd/MM/yyyy H:mm:ss", CultureInfo.InvariantCulture);
             return date;
         }
         public static String readSignal()

@@ -5,42 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using SignalProject.Models;
 using SignalProject.Models.Enum;
+using SignalProject.Models.Interfaces;
 
 namespace SignalProject.Services
 {
 	public class SignalCalculations
 	{
-		public double AverageValues(Signal signal)
+		private IStrategy _strategy;
+
+		public SignalCalculations()
+		{ }
+
+		public SignalCalculations(IStrategy strategy)
 		{
-			double sumValues = 0;
-			int totalValues = 0;
-			double average = 0;
-
-			foreach (var item in signal.Values)
-			{
-				sumValues += item.NumberValue;
-				totalValues++;
-			}
-
-			if (totalValues > 0)
-			{
-				average = sumValues / totalValues;
-			}
-			return average;
+			this._strategy = strategy;
 		}
-		public double MaxValue(Signal signal)
+
+		public void SetStrategy(IStrategy strategy)
 		{
-			double maxValueSignal = 0;
-
-			foreach (var itemSignal in signal.Values)
-			{
-				if (itemSignal.NumberValue > maxValueSignal)
-				{
-					maxValueSignal = itemSignal.NumberValue;
-				}
-			}
-			return maxValueSignal;
+			this._strategy = strategy;
 		}
+
+
+		public Object DoSomeBusinessLogic(Signal signal)
+		{
+			var result = this._strategy.DoAlgorithm(signal);
+
+			return result;
+
+		}
+
 		public Dictionary<String, int> NumOpenCloseSwitch(Signal signal)
 		{
 			Dictionary<String, int> OpenCloseList = new Dictionary<String, int>();

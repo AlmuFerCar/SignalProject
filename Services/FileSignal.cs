@@ -1,4 +1,6 @@
-﻿using SignalProject.Models;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using SignalProject.Models;
 using SignalProject.Models.Enum;
 using SignalProject.Models.Interfaces;
 
@@ -33,11 +35,11 @@ namespace SignalProject.Services
 
                         if (eSignalType.Equals(ESignalType.Analog))
                         {
-                            Signal = new AnalogSignal(SignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+                            Signal = new AnalogSignal(SignalName.Trim(), eSignalType, Helper.DateStringParser(FileList[2]));
                         }
                         else
                         {
-                            Signal = new DigitalSignal(SignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
+                            Signal = new DigitalSignal(SignalName.Trim(), eSignalType, Helper.DateStringParser(FileList[2]));
                         }
 
 
@@ -48,7 +50,7 @@ namespace SignalProject.Services
                         {
                             if (ValuesList[i] != " " && ValuesList[i] != "")
                             {
-                                Signal.Values.Add(new Value(Convert.ToDouble(ValuesList[i].Split("*")[0]), Helper.DateStringParser(ValuesList[i].Split("*")[1].Trim())));
+                                Signal.Values.Add(new Value(Convert.ToDouble(ValuesList[i].Split("*")[0]), Helper.DateStringParser(ValuesList[i].Split("*")[1])));
                             }
                         }
 
@@ -81,6 +83,10 @@ namespace SignalProject.Services
 					{
 						if (signal != null)
 						{
+
+                            //String json = JsonSerializer.Serialize(signal);
+                            //Console.WriteLine(json+",");
+
 							signal.Values.ForEach(value => { values += value.NumberValue + " * " + value.Date.ToString() + ";"; });
 							sw.Write($"{signal.name} - {signal.Type} - {signal.CreationTime} - {values}{Environment.NewLine}");
 							values = "";

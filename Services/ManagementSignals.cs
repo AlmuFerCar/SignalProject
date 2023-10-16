@@ -71,7 +71,7 @@ namespace SignalProject.Services
 			Signal signal;
 			try
 			{
-				signal = SignalsList.FirstOrDefault(signal => signal.name.Equals(name));
+				signal = SignalsList.Find(signal => signal.name.ToLower().Equals(name.ToLower()));
 				return signal;
 			}
 			catch (Exception)
