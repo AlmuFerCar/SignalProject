@@ -15,11 +15,6 @@ namespace SignalProject
 	{
 		public static void Main(string[] args) 
 		{
-			
-			//FileSignal file = new FileSignal();
-
-			//List<Signal> list = file.FindAllSignals();
-
 			Menu menu = new Menu();
 			menu.ShowMainMenu();
 		}
