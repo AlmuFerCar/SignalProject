@@ -12,8 +12,9 @@ namespace SignalProject.Services
 {
     public class FileSignal : IFileSignal
     {
-        //private string path = @"C:\Users\iscastro\Desktop\Signals.txt";
-        public string path = @"C:\Users\almfernandez\Desktop\Formacion_GESTAMP\Signals.txt";
+
+        public static string proyectoPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\"));
+        string path = Path.Combine(proyectoPath, "SignalFile.txt");
 
         public List<Signal> FindAllSignals()
         {
