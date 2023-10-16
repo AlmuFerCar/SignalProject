@@ -71,7 +71,7 @@ namespace SignalProject.Services
 			Signal signal;
 			try
 			{
-				signal = SignalsList.Find(signal => signal.name.ToString() == name);
+				signal = SignalsList.FirstOrDefault(signal => signal.name.Equals(name));
 				return signal;
 			}
 			catch (Exception)
@@ -102,31 +102,31 @@ namespace SignalProject.Services
 			SignalsList.Add(signal);
 			FileSignal.InsertSignal(SignalsList);
 		}
-		public void ShowSignal(Signal signal)
-		{
-			Console.Clear();
-			if (signal == null)
-			{
-				Console.WriteLine("No existe esta señal");
-			}
-			else
-			{
-                Console.WriteLine($"Señal de: {signal.name} es de tipo: {signal.Type} su fecha de creación es: {signal.CreationTime}");
-				if (signal.Values.Count > 0)
-				{
-                    Console.WriteLine("con valores: ");
-                    foreach (var item in signal.Values)
-                    {
-                        Console.WriteLine($"Valor: {item.NumberValue} Fecha: {item.Date}");
-                    }
-				}
-				else
-				{
-					Console.WriteLine("No hay valores añadidos...");
-				}
+
+        public void ShowSignal(Signal signal)
+        {
+            Console.Clear();
+            if (signal == null)
+            {
+                Console.WriteLine("No existe esta señal");
             }
-		}
-		public bool IsCreatedSignal(string name)
+            else if (signal.Values.Count > 0)
+            {
+                Console.WriteLine($"Señal de: {signal.name} es de tipo: {signal.Type} su fecha de creación es: {signal.CreationTime}");
+                Console.WriteLine("con valores: ");
+                foreach (var item in signal.Values)
+                {
+                    Console.WriteLine($"Valor: {item.NumberValue} Fecha: {item.Date}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Señal de: {signal.name} es de tipo: {signal.Type} su fecha de creación es: {signal.CreationTime}");
+                Console.WriteLine("No tiene valores añadidos.");
+            }
+        }
+
+        public bool IsCreatedSignal(string name)
 		{
             bool signalIsCreated = SignalsList.Any(itemSignal => itemSignal.name.ToString().ToLower() == name.ToLower());
             return signalIsCreated;

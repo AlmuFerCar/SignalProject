@@ -7,7 +7,7 @@ namespace SignalProject.Services
     public class FileSignal : IFileSignal
     {
 
-        public static string proyectoPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\"));
+        public static string proyectoPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\"));
         string path = Path.Combine(proyectoPath, "SignalFile.txt");
 
         public List<Signal> GetAllSignals()
@@ -31,7 +31,7 @@ namespace SignalProject.Services
                         SignalName = FileList[0];
                         Enum.TryParse(FileList[1], out eSignalType);
 
-                        if (eSignalType.ToString() == "Continuous")
+                        if (eSignalType.Equals(ESignalType.Analog))
                         {
                             Signal = new AnalogSignal(SignalName, eSignalType, Helper.DateStringParser(FileList[2].Trim()));
                         }

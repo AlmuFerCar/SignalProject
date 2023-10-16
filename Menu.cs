@@ -150,6 +150,7 @@ namespace SignalProject
             }
             return signal;
         }
+
         public void TextFindMenu()
 		{
 			Console.WriteLine("--- BUSQUEDA SEÑAL ---");
